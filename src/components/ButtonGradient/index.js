@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonContainer: {
-        width: '80%', // Ajuste a largura conforme necessário
+        width: '80%', 
     },
     text: {
         backgroundColor: 'transparent',

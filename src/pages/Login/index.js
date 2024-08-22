@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import DefaultButton from '../../components/DefaultButton';
-import { StyleSheet, Dimensions, Text, View, TextInput, Image, Alert } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Dimensions, Text, View, TextInput, Image, Alert, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import ButtonGradient from '../../components/ButtonGradient/';
@@ -20,6 +18,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const auth = getAuth(app);
 
 const { width, height } = Dimensions.get('window');
 
@@ -33,7 +32,6 @@ export default function LoginPage() {
             await signInWithEmailAndPassword(auth, email, password);
             Alert.alert('Login bem-sucedido!');
             // Navegar para outra tela após login, se necessário
-            // navigation.navigate('Home');
         } catch (error) {
             Alert.alert('Erro', error.message);
         }
@@ -66,11 +64,12 @@ export default function LoginPage() {
                     value={password}
                     onChangeText={setPassword}
                 />
-                <DefaultButton>secureTextEntry={secureTextEntry}, toggleSecureEntry={toggleSecureEntry}</DefaultButton>
+                <TouchableOpacity onPress={toggleSecureEntry} style={styles.icon}>
+                    <Ionicons name={secureTextEntry ? "eye-off" : "eye"} size={24} color="black" />
+                </TouchableOpacity>
             </View>
             <Text style={styles.forgotPassword}>Esqueceu sua senha?</Text>
             <ButtonGradient onPress={handleLogin} />
-            <StatusBar style="auto" />
         </View>
     );
 }
