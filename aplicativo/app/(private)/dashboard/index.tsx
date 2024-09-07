@@ -8,6 +8,7 @@ const DashboardPage = () => {
 
 export default DashboardPage;*/
 
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { View, TextInput, Button, Dimensions } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
@@ -19,6 +20,8 @@ const DashboardPage = () => {
         const parsedValue = parseInt(value, 10);
         if (!isNaN(parsedValue) && parsedValue >= 0 && parsedValue <= 100) {
             setPercentage(parsedValue);
+        }else{
+            router.push('/(private)/Alert')
         }
     };
 
@@ -71,6 +74,7 @@ const DashboardPage = () => {
             />
 
             <Button title="Atualizar" onPress={() => {}} />
+            <Button title="Alerta" onPress={(handleInputChange)}/>
         </View>
     );
 };
