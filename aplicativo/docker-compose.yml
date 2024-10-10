@@ -5,10 +5,10 @@ services:
     environment:
       POSTGRES_PASSWORD: admin
       POSTGRES_USER: admin
-      POSTGRES_DB: pdb
+      POSTGRES_DB: silos
       TZ: America/Sao_Paulo
     ports:
-      - 3306:5432
+      - 5432:5432
   keycloak:
     image: quay.io/keycloak/keycloak:20.0
     environment:

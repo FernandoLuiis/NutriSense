@@ -9,9 +9,10 @@ const DashboardPage = () => {
 export default DashboardPage;*/
 
 import React, {useEffect, useState} from 'react';
-import { View, Button, Dimensions } from 'react-native';
+import {View, Button, Dimensions, TextInput} from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
 import {getNivelRacao} from "@/service/silos";
+import {api} from "@/axios";
 
 const DashboardPage = () => {
     const [percentage, setPercentage] = useState(0);
@@ -22,15 +23,22 @@ const DashboardPage = () => {
 
     const handleGetNivelRacao = async () => {
         const reponse = await getNivelRacao();
+        await api.post("/nivel-racao", {
+            umidade: 2.0,
+            nivel: 3.0,
+            codigo_silo: 1
+        })
         setPercentage(reponse.porcentagem)
     }
 
     useEffect(()=>{
+
         handleGetNivelRacao()
     }, [])
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+
             <BarChart
                 data={{
                     labels: ['SILO'],
