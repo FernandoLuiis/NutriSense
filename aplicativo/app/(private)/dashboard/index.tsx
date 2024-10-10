@@ -8,22 +8,26 @@ const DashboardPage = () => {
 
 export default DashboardPage;*/
 
-import { router } from 'expo-router';
-import React, { useState } from 'react';
-import { View, TextInput, Button, Dimensions } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import { View, Button, Dimensions } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
+import {getNivelRacao} from "@/service/silos";
 
 const DashboardPage = () => {
-    const [percentage, setPercentage] = useState(50);
+    const [percentage, setPercentage] = useState(0);
 
-    const handleInputChange = (value) => {
-        const parsedValue = parseInt(value, 10);
-        if (!isNaN(parsedValue) && parsedValue >= 0 && parsedValue <= 100) {
-            setPercentage(parsedValue);
-        }else{
-            router.push('/(private)/Alert')
-        }
+    const handleInputChange = async () => {
+        await handleGetNivelRacao()
     };
+
+    const handleGetNivelRacao = async () => {
+        const reponse = await getNivelRacao();
+        setPercentage(reponse.porcentagem)
+    }
+
+    useEffect(()=>{
+        handleGetNivelRacao()
+    }, [])
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -57,23 +61,7 @@ const DashboardPage = () => {
                 }}
                 verticalLabelRotation={30}
             />
-
-            <TextInput
-                style={{
-                    marginTop: 20,
-                    height: 40,
-                    width: 200,
-                    borderColor: '#ccc',
-                    borderWidth: 1,
-                    paddingHorizontal: 10,
-                    textAlign: 'center',
-                }}
-                keyboardType="numeric"
-                placeholder="Informe a porcentagem"
-                onChangeText={handleInputChange}
-            />
-
-            <Button title="Atualizar" onPress={() => {}} />
+            <Button title="Atualizar" onPress={handleGetNivelRacao} />
             <Button title="Alerta" onPress={(handleInputChange)}/>
         </View>
     );
