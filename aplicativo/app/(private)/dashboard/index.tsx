@@ -1,13 +1,3 @@
-/*import {Text} from "react-native";
-
-const DashboardPage = () => {
-    return <>
-        <Text>Page</Text>
-    </>
-}
-
-export default DashboardPage;*/
-
 import React, {useEffect, useState} from 'react';
 import {View, Button, Dimensions, TextInput} from 'react-native';
 import { BarChart } from 'react-native-chart-kit';

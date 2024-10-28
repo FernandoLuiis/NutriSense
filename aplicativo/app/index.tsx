@@ -62,9 +62,11 @@ export default function LoginPage() {
                 </TouchableOpacity>
             </View>
             <Text style={styles.forgotPassword} onPress={handleCreateAccount}>Crie sua conta</Text>
-            <TouchableOpacity onPress={handleLogin}>
-                <Text>Login</Text>
+            <Text style={styles.forgotPassword} onPress={handleCreateAccount}>Esqueceu sua senha</Text>
+            <TouchableOpacity onPress={handleLogin} style={styles.button}>
+                <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
+
         </View>
     );
 }
@@ -115,5 +117,19 @@ const styles = StyleSheet.create({
     forgotPassword: {
         marginTop: 20,
         color: 'gray',
+    },
+    button: {
+        backgroundColor: '#6200EE',
+        paddingVertical: 12,
+        paddingHorizontal: 52,
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20,
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: 'bold',
     },
 });
