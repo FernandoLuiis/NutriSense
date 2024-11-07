@@ -1,6 +1,6 @@
 import { Text, TextInput, View } from "react-native";
 
-const InputName = ({ label, onChangeText, value, id }: any) => {
+const InputName = ({ label, onChangeText, value, id, type_keyboard = "default" }: any) => {
     return (
         <View
             style={{
@@ -13,6 +13,7 @@ const InputName = ({ label, onChangeText, value, id }: any) => {
                 {label} {/* O texto do label precisa estar dentro de um componente Text */}
             </Text>
             <TextInput
+                keyboardType={type_keyboard}
                 onChangeText={onChangeText}
                 value={value}
                 id={id}

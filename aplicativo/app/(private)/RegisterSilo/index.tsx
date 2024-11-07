@@ -15,7 +15,6 @@ const RegisterSilo = () => {
 
     const handleCreateSilo = async () =>{
         try {
-            console.log(form)
             await api.post("/capacidade_silos", {...form} )
             router.push('/dashboard')
         } catch (err) {
@@ -43,7 +42,7 @@ const RegisterSilo = () => {
         <InputName label="Diametro Final Cone Inferior" id={"diametro_final_s"} onChangeText={(value, id:"diametro_final_s") => {
             handleUpdateInput({value, id: "diametro_final_s"})
         }}/>
-        <InputName label="Diametro Central" id={"diametro_central"} onChangeText={(value, id:"diametro_central") => {
+        <InputName type_keyboard={"pad-number"} label="Diametro Central" id={"diametro_central"} onChangeText={(value, id:"diametro_central") => {
             handleUpdateInput({value, id: "diametro_central"})
         }}/>
 
