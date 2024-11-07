@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 
 const sequelize = new Sequelize('silos', 'admin', 'admin', {
     host: 'localhost',
@@ -14,4 +14,4 @@ sequelize.authenticate()
         console.error('Não foi possível conectar ao banco de dados:', err);
     });
 
-module.exports = sequelize;
+export default sequelize;

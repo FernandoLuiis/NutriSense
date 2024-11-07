@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../sequelize');
+import { DataTypes } from 'sequelize';
+import sequelize from '../sequelize';
 
 const NivelSilos = sequelize.define('NivelSilos', {
     id: {
@@ -24,4 +24,4 @@ const NivelSilos = sequelize.define('NivelSilos', {
     tableName: 'nivel_silos'
 });
 
-module.exports = NivelSilos;
+export default NivelSilos;

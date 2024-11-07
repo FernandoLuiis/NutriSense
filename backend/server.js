@@ -1,9 +1,9 @@
-const express = require("express")
-var cors = require('cors')
-const sequelize = require('./bd/sequelize');
+import express from "express"
+import cors from "cors"
+import {createRegisterSilo, findAllNivelRacao} from "./repository/silo";
+import sequelize from "./bd/sequelize.js";
 
-const NivelSilos = require('./bd/model/NivelSilos');
-const {findAllNivelRacao} = require("./repository/silo");
+
 const app = express()
 
 
@@ -14,6 +14,38 @@ app.use(express.json())
 app.get("/nivel-racao", async (req, res) => {
     const response = await findAllNivelRacao();
     res.json(response)
+})
+
+app.post("/capacidade_silos", async (req, res)=> {
+    const {
+        cd_silo,
+        qtd_silo,
+        diametro_inicial_i,
+        diametro_final_i,
+        diametro_inicial_s,
+        diametro_final_s,
+        diametro_central,
+        capacidade_silo
+    } = req.body
+    try {
+            console.log("entrou na fn2", capacidade_silo)
+        await createRegisterSilo({
+            cd_silo,
+            qtd_silo,
+             capacidade_silo,
+            diametro_inicial_i,
+            diametro_final_i,
+            diametro_inicial_s,
+            diametro_final_s,
+            diametro_central
+        })
+        console.log("ok")
+        res.send("xegou aqui")
+
+    }catch (e) {
+        res.send("Errow rude")
+
+    }
 })
 
 app.post("/nivel-racao", async (req, res) => {
@@ -32,6 +64,7 @@ sequelize.sync({force: false})
     })
     .catch(err => {
         console.error('Erro ao sincronizar as tabelas:', err);
-    });
+});
 
 
+//node --experimental-specifier-resolution=node

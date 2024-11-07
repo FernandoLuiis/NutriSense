@@ -1,4 +1,4 @@
-const sequelize = require('../bd/sequelize');
+import sequelize from '../bd/sequelize';
 sequelize.sync({ force: false })
     .then(() => {
         console.log('Tabelas sincronizadas com sucesso!');
