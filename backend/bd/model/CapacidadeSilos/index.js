@@ -1,5 +1,6 @@
-import {DataTypes} from 'sequelize';
-import sequelize from '../sequelize';
+import { DataTypes } from 'sequelize';
+import sequelize from '../sequelize/index.js';
+
 
 const CapacidadeSilos = sequelize.define('CapacidadeSilos', {
     id_silo: {
