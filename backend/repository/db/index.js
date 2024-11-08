@@ -8,5 +8,11 @@ export const findAllNivelRacao = async () => {
 }
 
 export const createRegisterSilo = async (req) => {
-    return CapacidadeSilos.create(req)
+    console.log("dentro", req)
+    try {
+
+        return CapacidadeSilos.create(req)
+    } catch (err) {
+        console.log("captu")
+    }
 }

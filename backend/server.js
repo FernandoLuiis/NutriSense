@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors"
 import { createRegisterSilo, findAllNivelRacao } from "./repository/db/index.js";
 import sequelize from "./bd/model/sequelize/index.js";
+import NivelSilos from "./bd/model/NivelSilos/index.js";
 
 
 const app = express()
@@ -17,27 +18,11 @@ app.get("/nivel-racao", async (req, res) => {
 })
 
 app.post("/capacidade_silos", async (req, res) => {
-    const {
-        cd_silo,
-        qtd_silo,
-        diametro_inicial_i,
-        diametro_final_i,
-        diametro_inicial_s,
-        diametro_final_s,
-        diametro_central,
-        capacidade_silo
-    } = req.body
+
     try {
-        console.log("entrou na fn2", capacidade_silo)
+        console.log("entrou na fn2", req.body)
         await createRegisterSilo({
-            cd_silo,
-            qtd_silo,
-            capacidade_silo,
-            diametro_inicial_i,
-            diametro_final_i,
-            diametro_inicial_s,
-            diametro_final_s,
-            diametro_central
+            ...req.body
         })
         console.log("ok")
         res.send("xegou aqui")

@@ -16,10 +16,6 @@ const CapacidadeSilos = sequelize.define('CapacidadeSilos', {
         type: DataTypes.FLOAT,
         allowNull: false,
     },
-    qtd_silo: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
-    },
     diametro_inicial_i: {
         type: DataTypes.FLOAT,
         allowNull: false,
