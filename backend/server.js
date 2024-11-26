@@ -1,55 +1,64 @@
-import express from "express"
-import cors from "cors"
-import { createRegisterSilo, findAllNivelRacao } from "./repository/db/index.js";
+import express from "express";
+import cors from "cors";
+import { createRegisterSilo } from "./repository/db/index.js";
 import sequelize from "./bd/model/sequelize/index.js";
 import NivelSilos from "./bd/model/NivelSilos/index.js";
 
+const app = express();
+const PORT = 3000;
 
-const app = express()
+// Middleware
+app.options('*', cors());
+app.use(express.json());
 
-
-app.options('*', cors())
-app.use(express.json())
-
-
-app.get("/nivel-racao", async (req, res) => {
-    const response = await findAllNivelRacao();
-    res.json(response)
-})
-
-app.post("/capacidade_silos", async (req, res) => {
-
+// Rota para salvar o nível do silo com logs detalhados
+app.post('/api/nivel-silo', async (req, res) => {
     try {
-        console.log("entrou na fn2", req.body)
-        await createRegisterSilo({
-            ...req.body
-        })
-        console.log("ok")
-        res.send("xegou aqui")
+        console.log("Dados recebidos do sensor:", req.body);
+        const { codigo_silo, nivel, umidade } = req.body;
 
-    } catch (e) {
-        res.send("Errow rude")
+        // Validações básicas
+        if (!codigo_silo || !nivel || !umidade) {
+            console.error("Erro: Dados incompletos recebidos.");
+            return res.status(400).json({ error: 'Dados incompletos enviados.' });
+        }
 
+        // Salva os dados na tabela NivelSilos
+        const novoRegistro = await NivelSilos.create({
+            codigo_silo,
+            nivel,
+            umidade
+        });
+
+        console.log("Dados salvos com sucesso no banco:", novoRegistro.toJSON());
+        res.status(201).json({ message: 'Dados recebidos e salvos com sucesso.' });
+    } catch (error) {
+        console.error('Erro ao salvar dados no banco:', error);
+        res.status(500).json({ error: 'Erro interno do servidor.' });
     }
-})
+});
 
-app.post("/nivel-racao", async (req, res) => {
-    const { nivel, umidade, codigo_silo } = req.body
-    const response = await NivelSilos.create({ nivel, umidade, codigo_silo })
-    res.json(response)
-})
+// Rota para registrar capacidade do silo
+app.post("/capacidade_silos", async (req, res) => {
+    try {
+        console.log("Dados recebidos no /capacidade_silos:", req.body);
+        await createRegisterSilo({ ...req.body });
+        console.log("Dados da capacidade do silo salvos com sucesso.");
+        res.send("Registro salvo com sucesso!");
+    } catch (error) {
+        console.error("Erro ao salvar dados no /capacidade_silos:", error);
+        res.status(500).send("Erro ao salvar dados.");
+    }
+});
 
-app.listen(3000, () => {
-    console.log("subiu!")
-})
-
+// Sincroniza o banco de dados e inicializa o servidor
 sequelize.sync({ force: false })
     .then(() => {
         console.log('Tabelas sincronizadas com sucesso!');
+        app.listen(PORT, () => {
+            console.log(`Servidor rodando na porta ${PORT}`);
+        });
     })
     .catch(err => {
         console.error('Erro ao sincronizar as tabelas:', err);
     });
-
-
-//node --experimental-specifier-resolution=node

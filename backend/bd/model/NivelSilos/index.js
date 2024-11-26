@@ -2,11 +2,6 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../sequelize/index.js';
 
 const NivelSilos = sequelize.define('NivelSilos', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
     codigo_silo: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -17,7 +12,7 @@ const NivelSilos = sequelize.define('NivelSilos', {
     },
     umidade: {
         type: DataTypes.DECIMAL,
-        allowNull: false,
+        allowNull: false
     },
 }, {
     timestamps: true,
@@ -25,3 +20,5 @@ const NivelSilos = sequelize.define('NivelSilos', {
 });
 
 export default NivelSilos;
+
+  
