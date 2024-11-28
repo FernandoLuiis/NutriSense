@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { createRegisterSilo } from "./repository/db/index.js";
+import { buscarNivelDoSiloPorID, createRegisterSilo } from "./repository/db/index.js";
 import sequelize from "./bd/model/sequelize/index.js";
 import NivelSilos from "./bd/model/NivelSilos/index.js";
 
@@ -11,6 +11,11 @@ const PORT = 3000;
 app.options('*', cors());
 app.use(express.json());
 
+
+app.get("/buscarNivelSilo/:id", async (req, resp) => {
+    const res = await buscarNivelDoSiloPorID(req.params.id)
+    resp.json(res[0])
+})
 // Rota para salvar o nível do silo com logs detalhados
 app.post('/api/nivel-silo', async (req, res) => {
     try {
