@@ -13,7 +13,7 @@ const RegisterSilo = () => {
     const handleCreateSilo = async () => {
         try {
             await api.post("/capacidade_silos", { ...form });
-            // router.push('/dashboard')
+             router.push('/dashboard')
         } catch (err) {
             console.log(err);
         }

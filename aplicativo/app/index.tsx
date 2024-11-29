@@ -4,8 +4,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from "firebase/analytics";
-import {router} from "expo-router";
-import {firebaseConfig} from "@/setup/firebase";
+import { router } from "expo-router";
+import { firebaseConfig } from "@/setup/firebase";
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
@@ -16,13 +16,13 @@ export default function LoginPage() {
     const [password, setPassword] = useState('');
     const [secureTextEntry, setSecureTextEntry] = useState(true);
 
-    const handleCreateAccount = () =>{
-        router.push('/register')
+    const handleCreateAccount = () => {
+        router.push('/dashboard')
     }
     const handleLogin = async () => {
         try {
             const response = await signInWithEmailAndPassword(auth, email, password);
-            if(response){
+            if (response) {
                 router.push('/RegisterSilo');
             }
         } catch (error) {

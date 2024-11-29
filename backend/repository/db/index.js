@@ -33,6 +33,10 @@ export async function getUltimoRegistro(siloId) {
         throw error;
     }
 }
+
+export const buscarTodos = async () => {
+    return CapacidadeSilos.findAll()
+}
 export const buscarNivelDoSiloPorID = async (id) => {
     const query = `SELECT ns.nivel
     FROM capacidade_silos cs
@@ -44,7 +48,7 @@ export const buscarNivelDoSiloPorID = async (id) => {
 `
 
     return await sequelize.query(query, {
-        replacements: { id: '1' },
+        replacements: { id: id },
         type: sequelize.QueryTypes.SELECT,
     });
 };
