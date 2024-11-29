@@ -1,8 +1,7 @@
 create table capacidade_silos (
     id_silo serial primary key,
-    capacidade_silo varchar(255) not null
+    capacidade_silo integer not null
     cd_silo integer not null,
-    qtd_silo integer not null,
     diametro_inicial_i float not null,
     diametro_final_i float not null,
     diametro_inicial_s float not null,

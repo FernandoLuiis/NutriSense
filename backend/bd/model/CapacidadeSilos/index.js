@@ -1,5 +1,6 @@
-import {DataTypes} from 'sequelize';
-import sequelize from '../sequelize';
+import { DataTypes } from 'sequelize';
+import sequelize from '../sequelize/index.js';
+
 
 const CapacidadeSilos = sequelize.define('CapacidadeSilos', {
     id_silo: {
@@ -12,10 +13,6 @@ const CapacidadeSilos = sequelize.define('CapacidadeSilos', {
         allowNull: false,
     },
     cd_silo: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
-    },
-    qtd_silo: {
         type: DataTypes.FLOAT,
         allowNull: false,
     },

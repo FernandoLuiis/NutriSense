@@ -23,7 +23,7 @@ export default function LoginPage() {
         try {
             const response = await signInWithEmailAndPassword(auth, email, password);
             if(response){
-                router.push('/dashboard');
+                router.push('/RegisterSilo');
             }
         } catch (error) {
             Alert.alert('Erro', error.message);
