@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        marginBottom: 5, // Ajuste de espaçamento entre o label e o campo
-        color: "#333", // Melhor contraste e consistência
+        marginBottom: 5,
+        color: "#333",
     },
     input: {
         paddingHorizontal: 12,
@@ -31,9 +31,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#ccc",
         borderRadius: 8,
-        fontSize: 14, // Fonte levemente maior para melhor legibilidade
+        fontSize: 14, 
         height: 50,
-        backgroundColor: "#FFF", // Fundo branco para contraste com o fundo da tela
+        backgroundColor: "#FFF",
     },
 });
 

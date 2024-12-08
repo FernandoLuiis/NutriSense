@@ -4,9 +4,8 @@ import {Text, TouchableHighlight, Alert} from "react-native";
 import { router } from "expo-router";
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from "@/setup/firebase"; // Certifique-se de que esse caminho está correto
+import { firebaseConfig } from "@/setup/firebase"; 
 
-// Inicializar o Firebase App
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
@@ -33,13 +32,11 @@ const RegisterPage = () => {
         }
 
         try {
-            // Criar o usuário com email e senha no Firebase Authentication
             const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
             const user = userCredential.user;
 
-            // Após o cadastro bem-sucedido, redirecionar para outra página
             Alert.alert('Sucesso', 'Usuário criado com sucesso!');
-            router.push('/RegisterSilo'); // Redirecionar para outra tela após o cadastro
+            router.push('/RegisterSilo'); 
         } catch (error) {
             Alert.alert('Erro', error.message);
         }

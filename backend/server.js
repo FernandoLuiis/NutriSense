@@ -7,7 +7,6 @@ import NivelSilos from "./bd/model/NivelSilos/index.js";
 const app = express();
 const PORT = 3000;
 
-// Middleware
 app.options('*', cors());
 app.use(express.json());
 
@@ -18,11 +17,17 @@ app.get("/buscarNivelSilo/:id", async (req, resp) => {
     resp.json(res[0])
 })
 
+app.get("/buscarNivelSilo/:createAD", async (req, resp) => {
+    console.log('nivelSilo')
+    const res = await buscarNivelDoSiloPorID(req.params.createAD)
+    resp.json(res[0])
+})
+
 app.get("/todosSilos", async (req, resp) => {
     const res = await buscarTodos()
     resp.json(res)
 })
-// Rota para salvar o nível do silo com logs detalhados
+
 app.post('/api/nivel-silo', async (req, res) => {
     try {
         console.log("Dados recebidos do sensor:", req.body);
@@ -49,7 +54,6 @@ app.post('/api/nivel-silo', async (req, res) => {
     }
 });
 
-// Rota para registrar capacidade do silo
 app.post("/capacidade_silos", async (req, res) => {
     try {
         console.log("Dados recebidos no /capacidade_silos:", req.body);
@@ -62,7 +66,6 @@ app.post("/capacidade_silos", async (req, res) => {
     }
 });
 
-// Sincroniza o banco de dados e inicializa o servidor
 sequelize.sync({ force: false })
     .then(() => {
         console.log('Tabelas sincronizadas com sucesso!');

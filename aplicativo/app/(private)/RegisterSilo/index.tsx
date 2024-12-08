@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     inputText: {
-        fontSize: 10, // Diminui o tamanho do texto dentro dos campos
+        fontSize: 10, 
     },
     button: {
         backgroundColor: "#555152",
