@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, FlatList, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { getAllSilos, getSiloInfo } from "@/service/silos";
 
 const DashboardPage = () => {
@@ -9,18 +9,42 @@ const DashboardPage = () => {
     const [createDate, setCreateDate] = useState('');
 
     const handleGetSiloInfo = async (id) => {
-        setPercentage(0);
+        setPercentage(0); // Define como 0% por padrão
         const response = await getSiloInfo(id);
         console.log('Resposta do getSiloInfo:', response); // Verificar os dados retornados
 
-        // Ajuste para formatar a data corretamente
-        const formattedDate = response.createdat.replace(
-            /(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}):(\d{2})/,
-            "$3-$2-$1T$4:$5:$6"
-        );
+        if (!response || response.nivel === undefined) {
+            // Caso não haja dados, define 0% e uma data padrão
+            setCreateDate('');
+            setPercentage(0);
+            setSelectedSilo(id);
+            Alert.alert(
+                "Informação indisponível",
+                `Nenhum dado disponível para o Silo ${id}.`,
+                [{ text: "OK", onPress: () => console.log("Alerta fechado.") }]
+            );
+            return;
+        }
+
+        // Ajuste para formatar a data corretamente, se disponível
+        const formattedDate = response.createdat
+            ? response.createdat.replace(
+                /(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}):(\d{2})/,
+                "$3-$2-$1T$4:$5:$6"
+            )
+            : '';
         setCreateDate(formattedDate);
         setPercentage(response.nivel);
         setSelectedSilo(id);
+
+        // Exibir alerta se o nível estiver abaixo de 50%
+        if (response.nivel < 70) {
+            Alert.alert(
+                "Atenção!",
+                `O nível do Silo ${id} está baixo (${response.nivel}%).`,
+                [{ text: "OK", onPress: () => console.log("Alerta fechado.") }]
+            );
+        }
     };
 
     const handleGetAllSilos = async () => {
@@ -58,7 +82,9 @@ const DashboardPage = () => {
                         <Text style={styles.cardSubheader}>Nível Atual:</Text>
                         <Text style={styles.cardPercentage}>{percentage}%</Text>
                         <Text style={styles.cardDate}>
-                            Salvo em: {new Date(createDate).toLocaleDateString("pt-BR")} às {new Date(createDate).toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' })}
+                            Salvo em: {createDate
+                                ? `${new Date(createDate).toLocaleDateString("pt-BR")} às ${new Date(createDate).toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' })}`
+                                : "Data não disponível"}
                         </Text>
                     </View>
                 </View>

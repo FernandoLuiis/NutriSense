@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
-import { StyleSheet, Dimensions, Text, View, TextInput, Image, Alert, TouchableOpacity } from 'react-native';
+import {
+    StyleSheet,
+    Dimensions,
+    Text,
+    View,
+    TextInput,
+    Image,
+    Alert,
+    TouchableOpacity,
+    KeyboardAvoidingView,
+    ScrollView,
+    Platform
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
@@ -17,8 +29,9 @@ export default function LoginPage() {
     const [secureTextEntry, setSecureTextEntry] = useState(true);
 
     const handleCreateAccount = () => {
-        router.push('/dashboard')
-    }
+        router.push('/dashboard');
+    };
+
     const handleLogin = async () => {
         try {
             const response = await signInWithEmailAndPassword(auth, email, password);
@@ -35,39 +48,44 @@ export default function LoginPage() {
     };
 
     return (
-        <View style={styles.container}>
-            <Image source={require('@/assets/images/logo_login.png')} style={styles.logo} />
-            <Text style={styles.titulo}>NutriSense</Text>
-            <Text style={styles.sub_titulo}>Excelência e controle</Text>
-            <View style={styles.inputContainer}>
-                <Ionicons name="mail" size={24} color="black" style={styles.icon} />
-                <TextInput
-                    placeholder="Email"
-                    style={styles.textInput}
-                    value={email}
-                    onChangeText={setEmail}
-                />
-            </View>
-            <View style={styles.inputContainer}>
-                <Ionicons name="lock-closed" size={24} color="black" style={styles.icon} />
-                <TextInput
-                    placeholder="Password"
-                    style={styles.textInput}
-                    secureTextEntry={secureTextEntry}
-                    value={password}
-                    onChangeText={setPassword}
-                />
-                <TouchableOpacity onPress={toggleSecureEntry} style={styles.icon}>
-                    <Ionicons name={secureTextEntry ? "eye-off" : "eye"} size={24} color="black" />
+        <KeyboardAvoidingView
+            style={styles.container}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        >
+            <ScrollView
+                contentContainerStyle={styles.scrollContent}
+                keyboardShouldPersistTaps="handled"
+            >
+                <Image source={require('@/assets/images/logo_login.png')} style={styles.logo} />
+                <Text style={styles.titulo}>NutriSense</Text>
+                <Text style={styles.sub_titulo}>Excelência e controle</Text>
+                <View style={styles.inputContainer}>
+                    <Ionicons name="mail" size={24} color="black" style={styles.icon} />
+                    <TextInput
+                        placeholder="Email"
+                        style={styles.textInput}
+                        value={email}
+                        onChangeText={setEmail}
+                    />
+                </View>
+                <View style={styles.inputContainer}>
+                    <Ionicons name="lock-closed" size={24} color="black" style={styles.icon} />
+                    <TextInput
+                        placeholder="Password"
+                        style={styles.textInput}
+                        secureTextEntry={secureTextEntry}
+                        value={password}
+                        onChangeText={setPassword}
+                    />
+                    <TouchableOpacity onPress={toggleSecureEntry} style={styles.icon}>
+                        <Ionicons name={secureTextEntry ? "eye-off" : "eye"} size={24} color="black" />
+                    </TouchableOpacity>
+                </View>
+                <TouchableOpacity onPress={handleLogin} style={styles.button}>
+                    <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
-            </View>
-            <Text style={styles.forgotPassword} onPress={handleCreateAccount}>Crie sua conta</Text>
-            <Text style={styles.forgotPassword} onPress={handleCreateAccount}>Esqueceu sua senha</Text>
-            <TouchableOpacity onPress={handleLogin} style={styles.button}>
-                <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
-
-        </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -75,8 +93,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f1f1f1',
+    },
+    scrollContent: {
+        flexGrow: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 20,
     },
     logo: {
         width: 175,
@@ -99,24 +121,20 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 20,
-        width: '80%',
+        width: '100%',
         borderWidth: 1,
         borderColor: 'gray',
         borderRadius: 10,
         backgroundColor: '#fff',
+        paddingHorizontal: 10,
     },
     textInput: {
         flex: 1,
         height: 50,
-        paddingLeft: 10,
         fontSize: 16,
     },
     icon: {
         marginHorizontal: 10,
-    },
-    forgotPassword: {
-        marginTop: 20,
-        color: 'gray',
     },
     button: {
         backgroundColor: '#6200EE',
@@ -126,6 +144,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 20,
+        width: '100%',
     },
     buttonText: {
         color: '#fff',
