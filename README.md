@@ -99,7 +99,7 @@ Outra vantagem é a portabilidade e automação. Com Docker, é possível config
 
   
 
- https://github.com/FernandoLuiis/NutriSense/issues/1#issue-2731746005
+https://github.com/FernandoLuiis/NutriSense/issues/1
                              Caso de uso
 
  
