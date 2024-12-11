@@ -83,14 +83,14 @@ Outra vantagem é a portabilidade e automação. Com Docker, é possível config
 3.1 Requisitos de software 
 	Para construção deste projeto será utilizado requisitos como sensores ultrassónicos, ESP32, energia renovável, comunicação Wi-fi, aplicação mobile para apresentação dos dados capturados, banco de dados para armazenagem destes dados capturados, assim oferecendo uma visão geral dos componentes e funcionalidades serão necessários para o projeto, desde os dados capturados até a exibição e controle final via aplicativo. 
 
-3.1.1	Requisitos funcionais:
+3.1.1	Requisitos não funcionais:
 - Fornecimento de ração;
 - Recebimento de ração;
 - Alimentação animal;
 - Controlar e notificar armazenamento;
 - Reposição da ração;
 
-3.1.2 Requisitos não funcionais:
+3.1.2 Requisitos funcionais:
 - Porcentagem de nível de ração em aplicativo;
 - Alerta de segurança em aplicativo;
 - Controle de consumo diário;
