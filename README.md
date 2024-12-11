@@ -97,8 +97,10 @@ Outra vantagem é a portabilidade e automação. Com Docker, é possível config
 - Usabilidade no aplicativo mobile;
 - Confiabilidade;
 
- 
-Caso de uso
+  
+
+ https://github.com/FernandoLuiis/NutriSense/issues/1#issue-2731746005
+                             Caso de uso
 
  
 Aplicação entre hardware e software 
