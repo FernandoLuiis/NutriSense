@@ -101,8 +101,11 @@ Outra vantagem é a portabilidade e automação. Com Docker, é possível config
 
 ![caso de uso](https://github.com/user-attachments/assets/cbd70150-b1e6-47ae-8985-ff74cce3199f)
                             
-			     Caso de uso
+			       Caso de uso
 
+![visão geral](https://github.com/user-attachments/assets/5b65dc98-9ff7-4ad5-86b2-eaaabc00af74)
+
+				Visão geral
  
 Aplicação entre hardware e software 
 
